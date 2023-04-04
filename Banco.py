@@ -1,8 +1,11 @@
 import re
 from abc import ABC, abstractmethod
 
+class SaqueNegado(Exception):
+    pass
 
-class LimiteChequeEspecialExcedente(ValueError):
+
+class LimiteChequeEspecialExcedente(Exception):
     pass
 
 
@@ -54,7 +57,7 @@ class ContaBancaria(ABC):
         if self.verificar_saldo_disponivel(valor_sacar):
             self._saldo -= valor_sacar
         else:
-            raise ValueError(
+            raise SaqueNegado(
                 "Valor a sacar precisa ser menor ou igual ao saldo da conta somado ao limite do cheque especial.")
 
     def __str__(self):
@@ -119,7 +122,7 @@ class ContaCorrente(ContaBancaria):
             self._limite_cheque_especial -= (valor_sacar - self._saldo)
             self._saldo = 0
         else:
-            raise ValueError(
+            raise LimiteChequeEspecialExcedente(
                 "Valor a sacar precisa ser menor ou igual ao saldo da conta somado ao limite do cheque especial.")
 
     def __str__(self):
@@ -163,4 +166,3 @@ if __name__ == "__main__":
 
     except (AssertionError, ValueError, TypeError, LimiteChequeEspecialExcedente) as e:
         print(e)
-
