@@ -157,12 +157,20 @@ class ContaInvestimento(ContaBancaria):
 if __name__ == "__main__":
     try:
 
-        corrente = ContaCorrente('Lucas', "12344-X", 500, 5000)
+        corrente = ContaCorrente('Lucas', "12344-X", 500, 1000)
+        corrente.sacar(900)
+        corrente.depositar(200)
         print(corrente)
 
         poupanca = ContaPoupanca('Vinicius', "12345-6", 3, 0.5)
         poupanca.depositar(100)
+        poupanca.sacar(2)
         print(poupanca)
 
-    except (AssertionError, ValueError, TypeError, LimiteChequeEspecialExcedente) as e:
+        investimento = ContaInvestimento('Barbosa', '12345-9', 200, 0.75)
+        investimento.depositar(100)
+        investimento.sacar(200)
+        print(investimento)
+
+    except (AssertionError, ValueError, TypeError, LimiteChequeEspecialExcedente, SaqueNegado) as e:
         print(e)
