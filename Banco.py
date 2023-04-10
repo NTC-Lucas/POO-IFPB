@@ -80,7 +80,7 @@ class ContaPoupanca(ContaBancaria):
         self._taxa_juros = taxa_juros
 
     def calcular_taxa_anual(self):
-        return (self._saldo * self._taxa_juros) * 12
+        return self._saldo * self._taxa_juros
 
     def verificar_saldo_disponivel(self, valor_saque):
         return self._saldo >= valor_saque
